@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/fantasyui-com/doubleu/issues"
   },
-  "homepage": "https://github.com/fantasyui-com/doubleu#readme"
+  "homepage": "https://github.com/fantasyui-com/doubleu#readme",
+  "dependencies": {
+    "diff-dom": "^2.4.0"
+  }
 }

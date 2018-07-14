@@ -1,5 +1,12 @@
+class Connector {
+  constructor(eventEmitter){
+    this.eventEmitter = eventEmitter;
+  }
+}
+
 class Connection {
-  constructor(){
+  constructor(eventName){
+    this.eventName = eventName;
   }
 }
 
@@ -29,9 +36,9 @@ class Template {
 }
 
 class Text {
-  constructor(text){
-    this.data = text;
+  constructor(data){
+    this.data = data;
   }
 }
 
-module.exports = { Connection, Style, Class, Region, Tag, Template, Text };
+module.exports = { Connector, Connection, Style, Class, Region, Tag, Template, Text };
