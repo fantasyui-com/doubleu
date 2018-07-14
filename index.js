@@ -38,13 +38,17 @@ class BootstrapCardBlock {}
 
 console.log(
   new StandardApplication(
+
     new Connector(emitter),
-    new Text('Hello World!'),
     new Connection('/applications/todo/control'),
+    new Style({ float: 'left', width: '200px' }),
+    new Text('Hello World!'),
+    
   ) // .mount(document.body)
 );
 
 let counter = 1;
+
 emitter.emit('/applications/todo/control', [
 		{meta:{ identity:'idc219000b8e8f4ea7a125ae1023cc821d', version:'3453,5756a44f3b0141d3aa5627f506181c2f',    token:'b5115bc0961247eaa6eb1dba54b204ed', deleted:false}, data:{value:'a'+counter, values:['four','five','six','x'+counter]}},
 		{meta:{ identity:'id8849201d21cb44dda43f012d89a2a101', version:'3458535,efc6d0f6f9d243539efc6c8cf63120c2', token:'699a268232dc4f139cbc3c34906dcd79', deleted:true}, data:{value:'b'+counter, values:['four','five','six','x'+counter]}},

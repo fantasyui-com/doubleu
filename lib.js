@@ -11,12 +11,14 @@ class Connection {
 }
 
 class Style {
-  constructor(){
+  constructor(style){
+    this.style = style;
   }
 }
 
 class Class {
-  constructor(){
+  constructor(data){
+    this.classNames = data.split(" ");
   }
 }
 

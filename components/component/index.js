@@ -9,45 +9,39 @@ class Component {
     this.data.connectors = new Set(); // Connection
     this.data.connections = new Set(); // Connection
     this.data.classes = new Set(); // Class
-    this.data.regions = new Map(); // Region
-    this.data.styles = new Map(); // Style
-    this.data.children = new Map(); // Tag Template Text
+    this.data.styles = new Object(); // Style
+    this.data.children = new Map(); // Tag Template Text ! // NOTE: this.data.children.REGION_NAME = [child, child, child];
 
-    // blocks.forEach((block)=>{
-    //   console.log(block.constructor.name)
-    // });
-    //
-    //
-    // blocks.reduce((accumulator, currentBlock) => {
-    //   return accumulator[currentBlock.constructor.name];
-    // }, this);
 
-    // blocks.filter(i=>i.constructor.name==='Connection').forEach( item => {
-    //   this.connections.add(item);
-    // });
-
-    // blocks.filter(i=>i.constructor.name==='Class').forEach( item => {
-    //   this.classs.add(item);
-    // });
-
-    blocks.filter(i=>i.constructor.name==='Text').forEach( block => {
-      if(!this.data.children.has(block.region)) this.data.children.set(block.region, new Array());
-      this.data.children.get(block.region).push(block);
-    });
-
-    blocks.filter(i=>i.constructor.name==='Connector').forEach( block => {
-      this.data.connectors.add(block);
-    });
-
-    blocks.filter(i=>i.constructor.name==='Connection').forEach( block => {
-      this.data.connections.add(block);
-    });
-
-    // -- //
+    this.initializeProperties();
     this.initializeListeners();
 
 
 
+  }
+
+  initializeProperties(){
+
+        blocks.filter(i=>i.constructor.name==='Style').forEach( block => {
+          Object.assign(this.data.styles, block.style);
+        });
+
+        blocks.filter(i=>i.constructor.name==='Class').forEach( block => {
+          block.classNames.forEach(className=>this.data.classes.add(className));
+        });
+
+        blocks.filter(i=>i.constructor.name==='Text').forEach( block => {
+          if(!this.data.children.has(block.region)) this.data.children.set(block.region, new Array());
+          this.data.children.get(block.region).push(block);
+        });
+
+        blocks.filter(i=>i.constructor.name==='Connector').forEach( block => {
+          this.data.connectors.add(block);
+        });
+
+        blocks.filter(i=>i.constructor.name==='Connection').forEach( block => {
+          this.data.connections.add(block);
+        });
   }
 
   initializeListeners(){
@@ -78,8 +72,10 @@ class Component {
   }
 
   mount(parent){
+
     parent.appendChild(this.data.domNode);
     return this;
+
   }
 
 }
