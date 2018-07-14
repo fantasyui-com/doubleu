@@ -29,7 +29,8 @@ class Template {
 }
 
 class Text {
-  constructor(){
+  constructor(text){
+    this.data = text;
   }
 }
 
