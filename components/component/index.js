@@ -74,11 +74,12 @@ class Component {
   }
 
   renderData(data, node){
-    // node.createElement('div') ...
+    // this.data.children.get('main') ... node.createElement('div') ...
   }
 
-  childNodes(){
-
+  mount(parent){
+    parent.appendChild(this.data.domNode);
+    return this;
   }
 
 }
