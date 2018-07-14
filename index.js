@@ -41,7 +41,7 @@ console.log(
     new Connector(emitter),
     new Text('Hello World!'),
     new Connection('/applications/todo/control'),
-  ).mount(document.body)
+  ) // .mount(document.body)
 );
 
 let counter = 1;

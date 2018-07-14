@@ -26,18 +26,23 @@ class Region {
 }
 
 class Tag {
-  constructor(){
+  constructor(data, region='main'){
+    this.data = data;
+    this.region = region;
   }
 }
 
 class Template {
-  constructor(){
+  constructor(data, region='main'){
+    this.data = data;
+    this.region = region;
   }
 }
 
 class Text {
-  constructor(data){
+  constructor(data, region='main'){
     this.data = data;
+    this.region = region;
   }
 }
 
