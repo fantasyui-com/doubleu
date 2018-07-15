@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/fantasyui-com/doubleu#readme",
   "dependencies": {
-    "diff-dom": "^2.4.0"
+    "diff-dom": "^2.4.0",
+    "lodash": "^4.17.10"
   }
 }

@@ -4,8 +4,10 @@ class Component {
 
   constructor(...blocks){
 
+    this.blocks = blocks;
+
     this.data = new Object();
-    // this.data.domNode = document.createElement('div');
+    this.data.domNode = document.createElement('div');
     this.data.connectors = new Set(); // Connection
     this.data.connections = new Set(); // Connection
     this.data.classes = new Set(); // Class
@@ -13,7 +15,7 @@ class Component {
     this.data.children = new Map(); // Tag Template Text ! // NOTE: this.data.children.REGION_NAME = [child, child, child];
 
 
-    this.initializeProperties();
+    this.initializeProperties(blocks);
     this.initializeListeners();
 
 
@@ -22,24 +24,24 @@ class Component {
 
   initializeProperties(){
 
-        blocks.filter(i=>i.constructor.name==='Style').forEach( block => {
+        this.blocks.filter(i=>i.constructor.name==='Style').forEach( block => {
           Object.assign(this.data.styles, block.style);
         });
 
-        blocks.filter(i=>i.constructor.name==='Class').forEach( block => {
+        this.blocks.filter(i=>i.constructor.name==='Class').forEach( block => {
           block.classNames.forEach(className=>this.data.classes.add(className));
         });
 
-        blocks.filter(i=>i.constructor.name==='Text').forEach( block => {
+        this.blocks.filter(i=>(i.constructor.name==='Text'||i.constructor.name==='Tag')).forEach( block => {
           if(!this.data.children.has(block.region)) this.data.children.set(block.region, new Array());
           this.data.children.get(block.region).push(block);
         });
 
-        blocks.filter(i=>i.constructor.name==='Connector').forEach( block => {
+        this.blocks.filter(i=>i.constructor.name==='Connector').forEach( block => {
           this.data.connectors.add(block);
         });
 
-        blocks.filter(i=>i.constructor.name==='Connection').forEach( block => {
+        this.blocks.filter(i=>i.constructor.name==='Connection').forEach( block => {
           this.data.connections.add(block);
         });
   }
@@ -59,16 +61,27 @@ class Component {
 
   patchNode(data){
 
-    // const node = document.createElement('div');
-    // this.renderData(data, node);
-    // const dd = new diffDOM({ valueDiffing: false });
-    // const diff = dd.diff(this.data.domNode, node);
-    // dd.apply(this.data.domNode, diff);
+    const node = document.createElement('div');
+    this.renderData(data, node);
+    const dd = new diffDOM({ valueDiffing: false });
+    const diff = dd.diff(this.data.domNode, node);
+    dd.apply(this.data.domNode, diff);
 
   }
 
   renderData(data, node){
     // this.data.children.get('main') ... node.createElement('div') ...
+
+
+    for (var region of this.data.children.keys()) {
+      this.data.children.get(region).forEach( entry => {
+        console.log(entry.constructor.name, entry)
+        const element = entry.createElement();
+        node.appendChild(element)
+
+      });
+    }
+
   }
 
   mount(parent){
