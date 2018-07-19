@@ -1,18 +1,54 @@
-const { StandardApplication, Emitter, Connection, Style, Class, Region, Tag, Template, Text, Connector } = require('.');
+const { StandardApplication, Component, Emitter, Connection, Style, Class, Region, Tag, Template, Text, Connector } = require('.');
 
 const emitter = new Emitter();
 
-class BootstrapSidebar {}
-class BootstrapStatus {}
-class BootstrapCardBlock {}
+class BootstrapSidebar extends Component {}
+
+class BootstrapCard extends Component {
+
+  render(parent){
+
+    const container = document.createElement('div')
+    container.setAttribute('style', 'border: 2px solid lime; padding: 1rem;');
+    const element = document.createTextNode('Parent');
+    container.appendChild(element);
+    parent.appendChild(container);
+    super.render(container);
+
+  }
+
+}
+
+class BootstrapCardBlock extends Component {
+
+  render(parent){
+
+    const container = document.createElement('div')
+    container.setAttribute('style', 'border: 2px solid lime; padding: 1rem;');
+    const element = document.createTextNode('Child');
+    container.appendChild(element);
+    parent.appendChild(container);
+    super.render(container);
+
+  }
+
+}
+
+
 
 new StandardApplication(
 
   new Connector(emitter),
   new Connection('/applications/todo/control'),
   new Style({ float: 'left', width: '200px' }),
-  new Tag('div', {style: {backgroundColor: 'red', height:'100px'}}),
-  new Text('Hello World!'),
+
+  new BootstrapCard(
+
+    new BootstrapCardBlock(),
+    new BootstrapCardBlock(),
+    new BootstrapCardBlock(),
+
+  )
 
 ).mount(document.body);
 

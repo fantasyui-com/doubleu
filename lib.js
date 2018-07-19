@@ -27,7 +27,8 @@ class Class {
 }
 
 class Region {
-  constructor(){
+  constructor(region){
+  this.region = region;
   }
 }
 
