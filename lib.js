@@ -2,6 +2,12 @@ var kebabCase = require('lodash/kebabcase');
 var flatten = require('lodash/flatten');
 var compact = require('lodash/compact');
 
+
+// CREATE REPO data-objects
+
+var Text = require('./classes/text');
+var Data = require('./classes/data');
+
 class Connector {
   constructor(eventEmitter){
     this.eventEmitter = eventEmitter;
@@ -113,14 +119,6 @@ class Template {
   }
 }
 
-class Text {
-  constructor(data="", region='main'){
-    this.data = data;
-    this.region = region;
-  }
-  createElement(){
-    return document.createTextNode(this.data);
-  }
-}
 
-module.exports = { Connector, Connection, Style, Class, Region, Tag, Template, Text };
+
+module.exports = { Connector, Connection, Style, Class, Region, Tag, Template, Text, Data };

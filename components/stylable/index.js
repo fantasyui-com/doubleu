@@ -1,13 +1,18 @@
+const kebab = require('lodash/kebabCase');
+
 const Reactive = require("../reactive");
 
 class Stylable extends Reactive {
 
   constructor(...blocks){
+
     super(...blocks);
-    console.log(`Constructor: Stylable`)
+    this.log(`Constructor: Stylable`)
 
     this.data.classes = new Set(); // Class
     this.data.styles = new Object(); // Style
+
+    this.data.classes.add(kebab(this.constructor.name));
 
     this.blocks.filter(i=>i.constructor.name==='Style').forEach( block => {
       Object.assign(this.data.styles, block.style);
