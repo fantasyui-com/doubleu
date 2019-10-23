@@ -1,6 +1,6 @@
 {
   "name": "doubleu",
-  "version": "1.15.0",
+  "version": "1.16.0",
   "description": "A component engine for the modern web.",
   "main": "index.js",
   "scripts": {
